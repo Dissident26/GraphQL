@@ -5,3 +5,4 @@ export * from './main';
 export * from './header';
 export * from './spinner';
 export * from './request-error';
+export * from './header-user-section';

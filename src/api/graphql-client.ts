@@ -1,4 +1,4 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache, makeVar } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 import { LOCAL_STORAGE_TOKEN_KEY } from '../constants';
@@ -20,7 +20,23 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+export const userVar = makeVar(undefined);
+
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        user: {
+          read() {
+            return userVar();
+          },
+        },
+      },
+    },
+  },
+});
+
 export const graphQLClient = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache,
 });

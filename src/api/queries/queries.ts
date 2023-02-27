@@ -8,6 +8,10 @@ export const LOG_IN_QUERY = gql`
     login(auth: { email: $login, password: $password }) {
       user {
         id
+        profile {
+          full_name
+          avatar
+        }
       }
       access_token
     }

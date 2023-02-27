@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useReactiveVar } from '@apollo/client';
 
 import { Form, Input, PasswordInput, RequestError, Spinner, SubmitButton } from '../..';
-import { LOG_IN_QUERY } from '../../../api';
+import { LOG_IN_QUERY, userVar } from '../../../api';
 import { LOCAL_STORAGE_TOKEN_KEY } from '../../../constants';
 
 import styles from './styles.module.scss';
@@ -17,6 +17,7 @@ export const LogInForm = () => {
     const { data } = await logIn({ variables: { login, password } });
 
     localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, data?.login?.access_token);
+    userVar(data?.login?.user);
   }, []);
 
   if (loading) {
