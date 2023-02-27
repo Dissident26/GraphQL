@@ -3,6 +3,7 @@ import { useLazyQuery } from '@apollo/client';
 
 import { Form, Input, PasswordInput, RequestError, Spinner, SubmitButton } from '../..';
 import { LOG_IN_QUERY } from '../../../api';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../../../constants';
 
 import styles from './styles.module.scss';
 
@@ -10,11 +11,12 @@ const LOGIN_INPUT_NAME = 'login';
 const PASSWORD_INPUT_NAME = 'password';
 
 export const LogInForm = () => {
-  const [logIn, { data, loading, error }] = useLazyQuery(LOG_IN_QUERY);
+  const [logIn, { loading, error }] = useLazyQuery(LOG_IN_QUERY);
 
   const onSubmit = useCallback(async ({ login, password }: any) => {
-    await logIn({ variables: { login, password } });
-    console.log('rerender');
+    const { data } = await logIn({ variables: { login, password } });
+
+    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, data?.login?.access_token);
   }, []);
 
   if (loading) {

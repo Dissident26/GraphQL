@@ -1,6 +1,8 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+import { LOCAL_STORAGE_TOKEN_KEY } from '../constants';
+
 const API_URL = 'https://cv-project-js.inno.ws/api/graphql';
 
 const httpLink = createHttpLink({
@@ -8,7 +10,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
 
   return {
     headers: {
