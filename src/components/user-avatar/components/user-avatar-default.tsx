@@ -5,5 +5,5 @@ interface IUserAvatarDefault {
 }
 
 export const UserAvatarDefault = ({ name }: IUserAvatarDefault) => (
-  <span className={styles.defaultAvatar}>{name[0].toUpperCase()}</span>
+  <span className={styles.defaultAvatar}>{name ? name[0].toUpperCase() : 'N/A'}</span>
 );

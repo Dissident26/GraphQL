@@ -17,3 +17,19 @@ export const LOG_IN_QUERY = gql`
     }
   }
 `;
+
+export const USERS_QUERY = gql`
+  query getUsers {
+    users {
+      id
+      email
+      department_name
+      position_name
+      profile {
+        avatar
+        first_name
+        last_name
+      }
+    }
+  }
+`;

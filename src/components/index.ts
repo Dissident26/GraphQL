@@ -6,3 +6,6 @@ export * from './header';
 export * from './spinner';
 export * from './request-error';
 export * from './header-user-section';
+export * from './table';
+export * from './emplooyees-section';
+export * from './user-avatar';

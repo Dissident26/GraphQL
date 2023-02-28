@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useLazyQuery, useReactiveVar } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 import { Form, Input, PasswordInput, RequestError, Spinner, SubmitButton } from '../..';
 import { LOG_IN_QUERY, userVar } from '../../../api';
@@ -13,12 +13,15 @@ const PASSWORD_INPUT_NAME = 'password';
 export const LogInForm = () => {
   const [logIn, { loading, error }] = useLazyQuery(LOG_IN_QUERY);
 
-  const onSubmit = useCallback(async ({ login, password }: any) => {
-    const { data } = await logIn({ variables: { login, password } });
+  const onSubmit = useCallback(
+    async ({ login, password }: any) => {
+      const { data } = await logIn({ variables: { login, password } });
 
-    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, data?.login?.access_token);
-    userVar(data?.login?.user);
-  }, []);
+      localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, data?.login?.access_token);
+      userVar(data?.login?.user);
+    },
+    [logIn]
+  );
 
   if (loading) {
     return <Spinner />;

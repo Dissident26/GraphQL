@@ -1,0 +1,8 @@
+.table {
+    border: 1px dashed black;
+    
+    & tr, & th, & td {
+        border: 1px dashed black;
+        text-align: center;
+    } 
+}

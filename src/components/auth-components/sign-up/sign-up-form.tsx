@@ -13,7 +13,6 @@ export const SignUpForm = () => {
   const [signIn, { data, loading, error }] = useMutation(SIGN_IN_MUTATION);
   const onSubmit = useCallback(async ({ login, password }: any) => {
     await signIn({ variables: { login, password } });
-    console.log('rerender');
   }, []);
 
   if (loading) {

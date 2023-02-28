@@ -1,15 +1,16 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devtool: 'eval-source-map',
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "bundle.js",
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.js',
     publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: 'src/index.html',
     }),
   ],
   devServer: {
@@ -20,21 +21,21 @@ module.exports = {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: "url-loader",
+        loader: 'url-loader',
         options: { limit: false },
       },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: ["ts-loader"],
+        use: ['ts-loader'],
       },
     ],
   },
   resolve: {
-    extensions: [".js", ".ts", ".tsx", ".tsx", ".css", ".scss"],
+    extensions: ['.js', '.ts', '.tsx', '.tsx', '.css', '.scss'],
   },
 };

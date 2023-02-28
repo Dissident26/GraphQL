@@ -26,11 +26,11 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        user: {
-          read() {
-            return userVar();
-          },
-        },
+        // user: {
+        //   read() {
+        //     return userVar();
+        //   },
+        // },
       },
     },
   },
