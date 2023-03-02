@@ -22,19 +22,7 @@ const authLink = setContext((_, { headers }) => {
 
 export const userVar = makeVar(undefined);
 
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        // user: {
-        //   read() {
-        //     return userVar();
-        //   },
-        // },
-      },
-    },
-  },
-});
+const cache = new InMemoryCache();
 
 export const graphQLClient = new ApolloClient({
   link: authLink.concat(httpLink),

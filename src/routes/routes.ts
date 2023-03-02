@@ -5,4 +5,5 @@ export const routes = {
     logIn: '/login',
   },
   employees: '/employees',
+  employee: '/employees/:id',
 };

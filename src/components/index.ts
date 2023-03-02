@@ -9,3 +9,4 @@ export * from './header-user-section';
 export * from './table';
 export * from './emplooyees-section';
 export * from './user-avatar';
+export * from './employee';

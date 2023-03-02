@@ -18,10 +18,25 @@ export const LOG_IN_QUERY = gql`
   }
 `;
 
-export const USERS_QUERY = gql`
+export const GET_USERS_QUERY = gql`
   query getUsers {
     users {
       id
+      email
+      department_name
+      position_name
+      profile {
+        avatar
+        first_name
+        last_name
+      }
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query getUser($id: ID!) {
+    user(id: $id) {
       email
       department_name
       position_name
