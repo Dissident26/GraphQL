@@ -38,8 +38,14 @@ export const GET_USER = gql`
   query getUser($id: ID!) {
     user(id: $id) {
       email
-      department_name
-      position_name
+      department {
+        id
+        name
+      }
+      position {
+        id
+        name
+      }
       profile {
         avatar
         first_name
