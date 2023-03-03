@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 
-interface ISelectOption {
+export interface ISelectOption {
   value: string;
   label: string;
 }

@@ -46,13 +46,15 @@ export const GET_USER = gql`
         last_name
       }
     }
-  }
-`;
-
-export const GET_DEPARTMENTS = gql`
-  query departments {
-    id
-    created_at
-    name
+    departments {
+      id
+      created_at
+      name
+    }
+    positions {
+      id
+      created_at
+      name
+    }
   }
 `;

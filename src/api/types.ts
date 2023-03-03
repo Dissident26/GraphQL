@@ -80,6 +80,8 @@ export interface IGetUsersResponse {
   users: IUser[];
 }
 
-export interface IGetUserResponse {
+export interface IGetUserInfoResponse {
   user: IUser;
+  positions: IPosition[];
+  departments: IDepartment[];
 }
