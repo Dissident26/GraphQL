@@ -75,3 +75,11 @@ export interface IUser {
   position_name: string;
   role: string;
 }
+
+export interface IGetUsersResponse {
+  users: IUser[];
+}
+
+export interface IGetUserResponse {
+  user: IUser;
+}

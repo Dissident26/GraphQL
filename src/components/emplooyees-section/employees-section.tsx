@@ -1,11 +1,7 @@
 import { useQuery } from '@apollo/client';
-import { IUser, GET_USERS_QUERY } from '../../api';
+import { GET_USERS_QUERY, IGetUsersResponse } from '../../api';
 import { Spinner } from '../spinner';
 import { EmployeesTable } from './components';
-
-interface IGetUsersResponse {
-  users: IUser[];
-}
 
 export const EmployeesSection = () => {
   const { data, loading } = useQuery<IGetUsersResponse>(GET_USERS_QUERY);
