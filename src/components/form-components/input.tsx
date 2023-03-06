@@ -18,11 +18,11 @@ export const Input = ({ label, name, ...rest }: InputProps) => {
       name={name}
       control={control}
       render={({ field }) => (
-        <>
+        <div className={styles.inputContainer}>
           {label && <label htmlFor={name}>{label}</label>}
           <input {...rest} {...field} />
           {errors[name] && <span className={styles.inputError}>{`${errors[name].message}`}</span>}
-        </>
+        </div>
       )}
     />
   );

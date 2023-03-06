@@ -23,7 +23,7 @@ export const Select = ({ options, label, name, ...rest }: ISelect) => {
       name={name}
       control={control}
       render={({ field }) => (
-        <>
+        <div className={styles.inputContainer}>
           {label && <label htmlFor={name}>{label}</label>}
           <select {...rest} {...field}>
             {options?.map(({ value, label }) => (
@@ -33,7 +33,7 @@ export const Select = ({ options, label, name, ...rest }: ISelect) => {
             ))}
           </select>
           {errors[name] && <span className={styles.inputError}>{`${errors[name].message}`}</span>}
-        </>
+        </div>
       )}
     />
   );

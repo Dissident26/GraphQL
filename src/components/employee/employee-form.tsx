@@ -70,8 +70,8 @@ export const EmployeeForm = ({ defaultValues: { user, departments, positions } }
   }, [submit]);
 
   return (
-    <div className={styles.formContainer}>
-      <Form onSubmit={onSubmit} defaultValues={defaultFormValues}>
+    <>
+      <Form onSubmit={onSubmit} defaultValues={defaultFormValues} className={styles.form}>
         <Input name={FIRST_NAME_INPUT_NAME} required label="First Name" />
         <Input name={LAST_NAME_INPUT_NAME} required label="Last Name" />
         <Select name={DEPARTMENT_INPUT_NAME} options={departmentsOption} label="Department" />
@@ -79,6 +79,6 @@ export const EmployeeForm = ({ defaultValues: { user, departments, positions } }
         <SubmitButton isLoading={loading}/>
       </Form>
       <RequestError error={error} />
-    </div>
+    </>
   );
 };
