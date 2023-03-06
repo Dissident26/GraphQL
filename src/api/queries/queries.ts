@@ -37,6 +37,7 @@ export const GET_USERS_QUERY = gql`
 export const GET_USER = gql`
   query getUser($id: ID!) {
     user(id: $id) {
+      id
       email
       department {
         id

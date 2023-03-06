@@ -15,23 +15,30 @@ export const SIGN_IN_MUTATION = gql`
   }
 `;
 
-// export const UPDATE_USER_MUTATION = gql`
-//   mutation UpdateUser($id: ID!, $updateUserInput: {
-//     profile: {
-//       first_name: String
-//       last_name: String
-//     }
-//     departmentId: ID
-//     positionId: ID
-//   }) {
-//     upateUser(id: $id, user: $updateUserInput) {
-//       profile: {
-//         first_name: String
-//         last_name: String
-//       }
-//       departmentId: ID
-//       positionId: ID
-//       }
-//     }
-//   }
-// `;
+export const UPDATE_USER_MUTATION = gql`
+  mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
+    updateUser(id: $id, user: $user) {
+      id
+      created_at
+      email
+      profile {
+        first_name
+        last_name
+        full_name
+        avatar
+      }
+      department {
+        id
+        created_at
+        name
+      }
+      department_name
+      position {
+        id
+        created_at
+        name
+      }
+      role
+    }
+  }
+`;

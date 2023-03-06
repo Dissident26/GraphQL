@@ -1,6 +1,9 @@
+import { useMutation } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
-import { Form, Input, ISelectOption, Select, SubmitButton } from '..';
-import { IDepartment, IPosition, IUser } from '../../api';
+
+import { Form, Input, ISelectOption, RequestError, Select, SubmitButton } from '..';
+import { IDepartment, IPosition, IUser, UPDATE_USER_MUTATION } from '../../api';
+
 import styles from './styles.module.scss';
 
 interface IDefaultFormValues {
@@ -13,10 +16,17 @@ interface IEmployeeForm {
   defaultValues?: IDefaultFormValues;
 }
 
+interface IFormSubmitValues {
+  first_name: string;
+  last_name: string;
+  departmentId: string;
+  positionId: string;
+}
+
 const FIRST_NAME_INPUT_NAME = 'first_name';
 const LAST_NAME_INPUT_NAME = 'last_name';
-const DEPARTMENT_INPUT_NAME = 'department_name';
-const POSITION_INPUT_NAME = 'position_name';
+const DEPARTMENT_INPUT_NAME = 'departmentId';
+const POSITION_INPUT_NAME = 'positionId';
 
 export const EmployeeForm = ({ defaultValues: { user, departments, positions } }: IEmployeeForm) => {
   const { positionsOptions, departmentsOption } = useMemo(() => {
@@ -31,6 +41,8 @@ export const EmployeeForm = ({ defaultValues: { user, departments, positions } }
     };
   }, [positions, departments]);
 
+  const [submit, { data, loading, error }] = useMutation(UPDATE_USER_MUTATION);
+
   const defaultFormValues = useMemo(
     () => ({
       [FIRST_NAME_INPUT_NAME]: user.profile.first_name,
@@ -41,9 +53,21 @@ export const EmployeeForm = ({ defaultValues: { user, departments, positions } }
     [user]
   );
 
-  const onSubmit = useCallback(async (data: any) => {
-    console.log(data);
-  }, []);
+  const onSubmit = useCallback(async ({first_name,
+    last_name,
+    departmentId,
+    positionId,}: IFormSubmitValues) => {
+    await submit({variables: {
+      id: user.id, user: {
+        profile: {
+          first_name,
+          last_name,
+        },
+        departmentId,
+        positionId
+      }
+    }})
+  }, [submit]);
 
   return (
     <div className={styles.formContainer}>
@@ -52,9 +76,9 @@ export const EmployeeForm = ({ defaultValues: { user, departments, positions } }
         <Input name={LAST_NAME_INPUT_NAME} required label="Last Name" />
         <Select name={DEPARTMENT_INPUT_NAME} options={departmentsOption} label="Department" />
         <Select name={POSITION_INPUT_NAME} options={positionsOptions} label="Position" />
-        <SubmitButton />
+        <SubmitButton isLoading={loading}/>
       </Form>
-      {/* <RequestError error={error} /> */}
+      <RequestError error={error} />
     </div>
   );
 };
