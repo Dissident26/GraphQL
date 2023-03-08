@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
 
-import { Form, Input, ISelectOption, RequestError, Select, SubmitButton } from '..';
+import { Form, ImageInput, Input, ISelectOption, RequestError, Select, SubmitButton } from '..';
 import { IDepartment, IPosition, IUser, UPDATE_USER_MUTATION } from '../../api';
 
 import styles from './styles.module.scss';
@@ -41,42 +41,49 @@ export const EmployeeForm = ({ defaultValues: { user, departments, positions } }
     };
   }, [positions, departments]);
 
-  const [submit, { data, loading, error }] = useMutation(UPDATE_USER_MUTATION);
+  const [submit, { loading, error }] = useMutation(UPDATE_USER_MUTATION);
 
   const defaultFormValues = useMemo(
     () => ({
       [FIRST_NAME_INPUT_NAME]: user.profile.first_name,
       [LAST_NAME_INPUT_NAME]: user.profile.last_name,
-      [DEPARTMENT_INPUT_NAME]: user.department.id,
-      [POSITION_INPUT_NAME]: user.position.id,
+      [DEPARTMENT_INPUT_NAME]: user.department?.id,
+      [POSITION_INPUT_NAME]: user.position?.id,
+      //add default value for avatar to get rid from errors in console
     }),
     [user]
   );
 
-  const onSubmit = useCallback(async ({first_name,
-    last_name,
-    departmentId,
-    positionId,}: IFormSubmitValues) => {
-    await submit({variables: {
-      id: user.id, user: {
-        profile: {
-          first_name,
-          last_name,
+  const onSubmit = useCallback(
+    async ({ first_name, last_name, departmentId, positionId, file }: IFormSubmitValues) => {
+      console.log('file', file);
+
+      await submit({
+        variables: {
+          id: user.id,
+          user: {
+            profile: {
+              first_name,
+              last_name,
+            },
+            departmentId,
+            positionId,
+          },
         },
-        departmentId,
-        positionId
-      }
-    }})
-  }, [submit]);
+      });
+    },
+    [submit, user.id]
+  );
 
   return (
     <>
       <Form onSubmit={onSubmit} defaultValues={defaultFormValues} className={styles.form}>
+        <ImageInput name="file" />
         <Input name={FIRST_NAME_INPUT_NAME} required label="First Name" />
         <Input name={LAST_NAME_INPUT_NAME} required label="Last Name" />
         <Select name={DEPARTMENT_INPUT_NAME} options={departmentsOption} label="Department" />
         <Select name={POSITION_INPUT_NAME} options={positionsOptions} label="Position" />
-        <SubmitButton isLoading={loading}/>
+        <SubmitButton isLoading={loading} />
       </Form>
       <RequestError error={error} />
     </>
